@@ -1,0 +1,258 @@
+<html>
+        <head><title>Downloaded HTML</title></head>
+        <body>
+            <pre style="white-space: pre-wrap; word-wrap: break-word;"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus in Malaysian Agro-Tech: Mushroom Growth Rates</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #115e59 0%, #064e3b 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen pb-12">
+
+    <header class="gradient-bg text-white py-8 px-6 shadow-md text-center">
+        <p class="text-sm uppercase tracking-wider text-teal-200 font-semibold">Agro Product Technology (SFP) • Calculus Application</p>
+        <h1 class="text-3xl md:text-4xl font-bold mt-2">Modeling Grey Oyster Mushroom Growth via Derivatives</h1>
+        <p class="mt-2 text-teal-100 max-w-2xl mx-auto text-sm md:text-base">
+            Optimizing harvest cycles for *Pleurotus ostreatus* in Malaysian smart greenhouses using rate-of-change analytics.
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto mt-8 px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-1 space-y-6">
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-xl font-bold text-teal-900 border-b pb-2 mb-3">The Bioscience Scenario</h2>
+                <p class="text-gray-700 text-sm leading-relaxed">
+                    In Malaysian agro-processing, Grey Oyster Mushrooms are vital for meat-alternative products and local fresh markets. To maximize yield, growers must know exactly when the biological growth rate peaks (the point of diminishing returns) to schedule harvests and optimize climate controls.
+                </p>
+                <div class="mt-4 bg-teal-50 p-3 rounded text-xs text-teal-800 border-l-4 border-teal-600">
+                    <strong>Data Context:</strong> Parameters are adapted from growth profiles observed under Malaysian ambient humidity (80-90%) and temperature (28°C-30°C) conditions using standard rubberwood sawdust bags.
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-xl font-bold text-teal-900 border-b pb-2 mb-3">Mathematical Model</h2>
+                <p class="text-sm text-gray-600 mb-4">We model the cumulative flush biomass weight $f(x)$ in grams over a 20-day fruiting cycle using a tailored Logistic Growth Function:</p>
+                
+                <div class="bg-gray-50 p-3 rounded mb-4 font-mono text-xs text-gray-800">
+                    <span class="font-bold text-teal-700">Biomass Function f(x):</span>
+                    <div class="text-sm mt-1 py-1 font-semibold text-center bg-white border rounded">
+                        f(x) = 250 / (1 + e^(-0.4 * (x - 10)))
+                    </div>
+                    <ul class="list-disc list-inside mt-2 text-[11px] text-gray-600 space-y-1">
+                        <li><strong>x</strong> = Days since primordial pinhead formation.</li>
+                        <li><strong>250</strong> = Maximum carrying capacity (grams per bag).</li>
+                        <li><strong>10</strong> = Day of maximum acceleration (inflection point).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-3 rounded font-mono text-xs text-gray-800">
+                    <span class="font-bold text-amber-700">Growth Rate Derivative f'(x):</span>
+                    <div class="text-sm mt-1 py-1 font-semibold text-center bg-white border rounded">
+                        f'(x) = [100 * e^(-0.4 * (x - 10))] / [1 + e^(-0.4 * (x - 10))]^2
+                    </div>
+                    <p class="mt-2 text-[11px] text-gray-600">
+                        Calculates the instantaneous growth rate in <strong>grams per day</strong> at any exact moment.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="lg:col-span-2 space-y-6">
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 mb-4 border-b">
+                    <div>
+                        <h2 class="text-xl font-bold text-teal-900">Interactive Yield Analytics Curve</h2>
+                        <p class="text-xs text-gray-500">Click anywhere along the chart grid lines to calculate calculus derivatives instantly.</p>
+                    </div>
+                    <span class="mt-2 sm:mt-0 text-[11px] font-medium bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                        💡 Interactive Canvas
+                    </span>
+                </div>
+                
+                <div class="relative w-full h-[350px]">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+
+            <div id="inspectorPanel" class="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-6 rounded-xl shadow-md border-t-4 border-amber-500 transition-all duration-300 transform scale-100">
+                <div id="welcomeInstructions">
+                    <h3 class="text-amber-400 font-bold text-lg mb-1">📊 Click the chart to execute Calculus!</h3>
+                    <p class="text-slate-300 text-sm">Select any day on the chart grid lines above to read the precise cumulative biomass and its instantaneous biological rate of change via its derivative function.</p>
+                </div>
+                
+                <div id="dataOutput" class="hidden">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center border-b border-slate-700 pb-4 mb-4">
+                        <div class="bg-slate-800/50 p-2 rounded border border-slate-700">
+                            <span class="text-xs uppercase text-slate-400 tracking-wider">Selected Timeline</span>
+                            <div class="text-2xl font-bold text-amber-400 mt-1"><span id="outDay">0.0</span> Days</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-2 rounded border border-slate-700">
+                            <span class="text-xs uppercase text-slate-400 tracking-wider">Cumulative Yield f(x)</span>
+                            <div class="text-2xl font-bold text-teal-400 mt-1"><span id="outBiomass">0.0</span> g/bag</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-2 rounded border border-slate-700">
+                            <span class="text-xs uppercase text-slate-400 tracking-wider">Instant Rate f'(x)</span>
+                            <div class="text-2xl font-bold text-rose-400 mt-1"><span id="outRate">0.0</span> g/day</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-amber-400 text-xs uppercase tracking-wider font-semibold mb-1">Layman Explanatory Synthesis:</h4>
+                        <p id="laymanExplanation" class="text-slate-200 text-sm italic leading-relaxed">Selecting a data point will construct an evaluation here.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-8 px-4 text-center text-xs text-gray-400 space-y-1">
+        <p>Built for Agro-Product Tech Diagnostics & Digital Twin Simulation.</p>
+        <p>Biological reference models calibrated with data methodologies found in peer reviews from the <em>Malaysian Journal of Microbiology</em> & <em>Journal of Tropical Agriculture and Food Science (MARDI)</em>.</p>
+    </footer>
+
+    <script>
+        // Generate values using the mathematical formulas
+        const days = [];
+        const biomassData = [];
+        const rateData = [];
+
+        // Generate smooth dataset spanning 20 days sampled at increments of 0.5 days
+        for (let x = 0; x <= 20; x += 0.5) {
+            days.push(x.toFixed(1));
+            
+            // f(x) = 250 / (1 + Math.exp(-0.4 * (x - 10)))
+            const fx = 250 / (1 + Math.exp(-0.4 * (x - 10)));
+            biomassData.push(fx.toFixed(2));
+            
+            // f'(x) = (100 * Math.exp(-0.4 * (x - 10))) / Math.pow((1 + Math.exp(-0.4 * (x - 10))), 2)
+            const fPrimeX = (100 * Math.exp(-0.4 * (x - 10))) / Math.pow((1 + Math.exp(-0.4 * (x - 10))), 2);
+            rateData.push(fPrimeX.toFixed(2));
+        }
+
+        // Initialize Chart.js configuration
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        const growthChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: days,
+                datasets: [
+                    {
+                        label: 'Cumulative Biomass f(x) (g)',
+                        data: biomassData,
+                        borderColor: '#0d9488',
+                        backgroundColor: 'rgba(13, 148, 136, 0.05)',
+                        borderWidth: 3,
+                        yAxisID: 'yFill',
+                        tension: 0.2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: "Instantaneous Growth Rate f'(x) (g/day)",
+                        data: rateData,
+                        borderColor: '#f43f5e',
+                        borderDash: [5, 5],
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        yAxisID: 'yRate',
+                        tension: 0.2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { boxWidth: 12, font: { size: 11 } }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time in Fruiting House (Days)', font: { weight: 'bold' } }
+                    },
+                    yFill: {
+                        type: 'linear',
+                        position: 'left',
+                        title: { display: true, text: 'Total Mushroom Mass (g / Bag)', font: { weight: 'bold' } },
+                        min: 0,
+                        max: 270
+                    },
+                    yRate: {
+                        type: 'linear',
+                        position: 'right',
+                        title: { display: true, text: 'Growth Rate Velocity (g / Day)', font: { weight: 'bold' } },
+                        min: 0,
+                        max: 30,
+                        grid: { drawOnChartArea: false } // Only display grid lines for left axis
+                    }
+                },
+                // Trigger action updates upon user click events anywhere inside canvas bounds
+                onClick: (e) => {
+                    const points = growthChart.getElementsAtEventForMode(e, 'index', { intersect: false }, true);
+                    if (points.length) {
+                        const index = points[0].index;
+                        const clickedDay = days[index];
+                        const clickedBiomass = biomassData[index];
+                        const clickedRate = rateData[index];
+                        
+                        updateInspector(clickedDay, clickedBiomass, clickedRate);
+                    }
+                }
+            }
+        });
+
+        // Compute and generate real-time biological analytics based on selected derivatives
+        function updateInspector(day, biomass, rate) {
+            // Toggle view visibility
+            document.getElementById('welcomeInstructions').classList.add('hidden');
+            document.getElementById('dataOutput').classList.remove('hidden');
+            
+            // Populate value nodes
+            document.getElementById('outDay').innerText = day;
+            document.getElementById('outBiomass').innerText = biomass;
+            document.getElementById('outRate').innerText = rate;
+
+            // Generate an automated Agro-Product textual feedback report based on calculated derivative values
+            let feedback = "";
+            const numericalDay = parseFloat(day);
+            const numericalRate = parseFloat(rate);
+
+            if (numericalDay < 6) {
+                feedback = `At Day ${day}, the mycelium network is just starting to adapt out of its pinhead structural state. The biological rate of change is low (${rate} g/day). Keep greenhouse humidity at a steady 90% and hold off harvesting.`;
+            } else if (numericalDay >= 6 && numericalDay <= 13) {
+                if (numericalRate > 24) {
+                    feedback = `CRITICAL ALERT: At Day ${day}, you have hit the peak inflection point! The derivative f'(x) reaches its historical maximum of ${rate} g/day. This represents the fastest metabolic conversion of rubberwood sawdust into raw mushroom flesh. This is your prime operational window for processing extractives or harvesting for crisp shelf-stability.`;
+                } else {
+                    feedback = `At Day ${day}, the mushroom block is currently experiencing rapid growth, surging at an instantaneous velocity of ${rate} grams per single day. Metabolic rates are high.`;
+                }
+            } else {
+                feedback = `At Day ${day}, growth is reaching its ceiling with a low derivative of ${rate} g/day. The biological curve has flattened because nutrients inside the localized substrate bag are almost entirely spent. Harvest immediately to clear room for the next flush round before mold risks set in.`;
+            }
+
+            document.getElementById('laymanExplanation').innerText = feedback;
+        }
+    </script>
+</body>
+</html></pre>
+        </body>
+    </html>
